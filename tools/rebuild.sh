@@ -14,7 +14,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-SCRIPTDIR="$(dirname $(readlink --canonicalize ${BASH_SOURCE}))"
+gnureadlink() {
+    if hash greadlink 2>/dev/null; then
+        greadlink "$@"
+    else
+        readlink "$@"
+    fi
+}
+
+SCRIPTDIR="$(dirname $(gnureadlink --canonicalize ${BASH_SOURCE}))"
 SRCDIR="$(realpath ${SCRIPTDIR}/..)"
 TCF_ENCLAVE_CODE_SIGN_PEM=${SCRIPTDIR}/../enclave.pem
 

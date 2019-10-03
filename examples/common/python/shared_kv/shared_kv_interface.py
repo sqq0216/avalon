@@ -51,7 +51,8 @@ class KvStorage:
                 raise Exception("Invalid Map Storage Size")
             db_store.db_store_init(lmdb_file, map_size)
             return True
-        except:
+        except Exception as e:
+            logger.error("Failed to init KV storage interface: " + str(e.args))
             return False
 
 # ---------------------------------------------------------------------------------------------------
@@ -64,7 +65,7 @@ class KvStorage:
 # ---------------------------------------------------------------------------------------------------
     def set(self, table, key, value):
         """
-        Function to set a key-value pair in a lmdb table 
+        Function to set a key-value pair in a lmdb table
         Parameters:
            - table is the name of lmdb table in which key-value pair need to be inserted.
            - key is the primary key of the table.
@@ -79,7 +80,7 @@ class KvStorage:
 # ---------------------------------------------------------------------------------------------------
     def get(self, table, key):
         """
-        Function to get the value for a key in a lmdb table 
+        Function to get the value for a key in a lmdb table
         Parameters:
            - table is the name of lmdb table in which key-value pair need to be retrieved.
            - key is the primary key of the table.
@@ -122,7 +123,7 @@ class KvStorage:
 # ---------------------------------------------------------------------------------------------------
     def lookup(self, table):
         """
-        Function to get all the keys in a lmdb table 
+        Function to get all the keys in a lmdb table
         Parameters:
            - table is the name of lmdb table.
         """

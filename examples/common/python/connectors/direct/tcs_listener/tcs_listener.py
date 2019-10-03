@@ -52,7 +52,7 @@ logger = logging.getLogger(__name__)
 
 class TCSListener(resource.Resource):
     """
-    TCSListener Class  is comprised of HTTP interface which listens for the end user requests, 
+    TCSListener Class  is comprised of HTTP interface which listens for the end user requests,
     Worker Registry Handler, Work Order Handler and Work Order Receipts Handler .
     """
     # The isLeaf instance variable describes whether or not a resource will have children and only leaf resources get rendered.
@@ -128,6 +128,7 @@ class TCSListener(resource.Resource):
         return response
 
     def render_POST(self, request):
+        print("hello")
         response = {}
 
         logger.info('Received a new request from the client')

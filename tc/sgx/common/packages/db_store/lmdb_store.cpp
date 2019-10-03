@@ -102,6 +102,7 @@ tcf_err_t tcf::lmdb_store::db_store_init(const std::string& db_path, const size_
     ret = mdb_env_open(lmdb_store_env, db_path.c_str(), MDB_NOSUBDIR | MDB_WRITEMAP | MDB_NOMETASYNC | MDB_MAPASYNC, 0664);
     if (ret != 0) {
         // SAFE_LOG(TCF_LOG_ERROR, "Failed to open LMDB database; %d", ret);
+				tcf::error::ThrowIf<tcf::error::SystemError>(ret != 0, strerror(ret));
         return TCF_ERR_SYSTEM;
     }
 
@@ -148,7 +149,7 @@ tcf_err_t tcf::db_store::db_store_get_value_size(
 
     lmdb_id.mv_size = inIdSize;
     lmdb_id.mv_data = (void*)inId;
-    
+
     ret = mdb_get(stxn.txn, dbi, &lmdb_id, &lmdb_data);
     if (ret == MDB_NOTFOUND) {
         *outIsPresent = false;
@@ -169,7 +170,7 @@ tcf_err_t tcf::db_store::db_store_get_value_size(
         // SAFE_LOG(TCF_LOG_DEBUG, "db store found id: '%s' -> '%s'", idStr.c_str(), valueStr.c_str());
     }
 #endif
- 
+
     return TCF_SUCCESS;
 }
 
