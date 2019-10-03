@@ -1,0 +1,8 @@
+server:
+  port: ${EEA_WORKER_PORT:18091}
+
+listener:
+  workOrderContractAddress: ${EEA_WORKORDER_CONTRACT_ADDRESS:0x9B04867c5551EC3b5aa9EB1496DdC79EE0e95ECb}
+  blockchainNodeAddress: ${EEA_LISTENER_BLOCKCHAIN_NODE_ADDRESS:http://localhost:8545}
+  apiEndpoint: ${EEA_LISTENER_API_ENDPOINT:http://localhost:1947}
+
